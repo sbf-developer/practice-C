@@ -143,8 +143,131 @@ int main(void)
     }
 }
 
+// PSET 2 - Readability
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <math.h>
+
+int main(void)
+{
+    char text[1000];
+
+    printf("Text: ");
+    fgets(text, sizeof(text), stdin);
+
+    int letters = 0;
+    int words = 1;
+    int sentences = 0;
+
+    for (int i = 0; i < strlen(text); i++)
+    {
+        if (isalpha(text[i]))
+        {
+            letters++;
+        }
+        else if (text[i] == ' ')
+        {
+            words++;
+        }
+        else if (text[i] == '.' || text[i] == '!' || text[i] == '?')
+        {
+            sentences++;
+        }
+    }
+
+    float L = ((float) letters / words) * 100;
+    float S = ((float) sentences / words) * 100;
+
+    int index = round(0.0588 * L - 0.296 * S - 15.8);
+
+    if (index < 1)
+    {
+        printf("Before Grade 1\n");
+    }
+    else if (index >= 16)
+    {
+        printf("Grade 16+\n");
+    }
+    else
+    {
+        printf("Grade %d\n", index);
+    }
+
+    return 0;
+}
 
 
+// PSET 2 - Substition
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: ./substitution key\n");
+        return 1;
+    }
+
+    char *key = argv[1];
+
+    if (strlen(key) != 26)
+    {
+        printf("Key must contain 26 characters.\n");
+        return 1;
+    }
+
+    for (int i = 0; i < 26; i++)
+    {
+        if (!isalpha(key[i]))
+        {
+            printf("Key must only contain letters.\n");
+            return 1;
+        }
+
+        for (int j = i + 1; j < 26; j++)
+        {
+            if (tolower(key[i]) == tolower(key[j]))
+            {
+                printf("Key must not contain repeated letters.\n");
+                return 1;
+            }
+        }
+    }
+
+    char text[1000];
+
+    printf("plaintext: ");
+    fgets(text, sizeof(text), stdin);
+
+    printf("ciphertext: ");
+
+    for (int i = 0; i < strlen(text); i++)
+    {
+        char c = text[i];
+
+        if (isupper(c))
+        {
+            int position = c - 'A';
+            printf("%c", toupper(key[position]));
+        }
+        else if (islower(c))
+        {
+            int position = c - 'a';
+            printf("%c", tolower(key[position]));
+        }
+        else
+        {
+            printf("%c", c);
+        }
+    }
+
+    return 0;
+}
 
 
 
