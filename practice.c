@@ -271,6 +271,11 @@ int main(int argc, char *argv[])
 
 
 
+// PSET 3 - Plurality
+
+
+
+// PSET 3 - Tideman
 
 
 
