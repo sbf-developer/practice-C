@@ -22,3 +22,18 @@ int main(void)
     }
     return 0;
 }
+
+// PSET 1 - Ask user for name, then print Hello [username] 
+
+int main(void)
+{
+    char name[100];
+    printf("What is your name? ");
+    fgets(name, sizeof(name), stdin);
+
+    name[strcspn(name, "\n")] = '\0';
+
+    printf("hello, %s\n", name);
+
+    return 0
+}
